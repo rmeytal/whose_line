@@ -2,10 +2,10 @@ import re
 import pathlib
 
 avg_diff = lambda list1, list2: sum(abs(a - b) for a, b in zip(list1, list2))/len(list1)
-no_space = lambda l: [re.search("^\\s*(.*)", cur).group(1) for cur in l]
-remove_line_whitespace = lambda s: "\n".join([line.strip() for line in s.split("\n")])
+no_space = lambda l: [cur.lstrip() for cur in l]
+remove_line_whitespace = lambda s: "\n".join([line.strip() for line in s.splitlines()])
 has_dup = lambda l: len(set(l)) < len(l)
-flatten = lambda l: sum((elem for elem in l), start=[])
+flatten = lambda l: [item for elem in l for item in elem]
 grep = lambda folder, st: [f.name for f in pathlib.Path(folder).iterdir() if f.is_file() and st in f.read_text()]
 
 def main() -> None:
